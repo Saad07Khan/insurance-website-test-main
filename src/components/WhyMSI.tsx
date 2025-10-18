@@ -5,7 +5,7 @@ import whyMsiImg from "@/assets/whyrearview.jpg";
 import claimsImg from "@/assets/whyrepair.jpg";
 import careersImg from "@/assets/whyhouse.jpg";
 import kitchenImg from "@/assets/whykitchen.jpg"
-import momImg from "@/assets/whyMom.jpg"
+import momImg from "@/assets/whymom.jpg"
 import hospitalImg from "@/assets/whyhospital.jpg"
 // Import partner logos
 import img1 from '@/assets/one.png';
