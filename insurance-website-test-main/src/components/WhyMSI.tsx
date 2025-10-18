@@ -19,6 +19,25 @@ import img8 from '@/assets/eight.png';
 import img9 from '@/assets/nine.png';
 import img10 from '@/assets/ten.png';
 
+interface StatItem {
+  value: string | number;
+  label: string;
+}
+
+interface Slide {
+  id: number;
+  eyebrow: string;
+  heading: string;
+  image: string;
+  type: 'text' | 'stats';
+  description: string;
+  cta: {
+    text: string;
+    link: string;
+  };
+  stats?: StatItem[];
+}
+
 interface PartnerImage {
   src: string;
   alt: string;
@@ -37,7 +56,7 @@ const partnerImages: PartnerImage[] = [
   { src: img10, alt: 'Partner 10' },
 ];
 
-const slides = [  
+const slides: Slide[] = [  
   {
     id: 1,
     eyebrow: "WHY Insurify",
@@ -45,8 +64,7 @@ const slides = [
     image: hospitalImg,
     type: "text",
     description: "Routine checkups, vaccinations, and screenings catch small issues before they become big problems, helping you stay well today and avoid costly treatment later. Our plans make preventive care easy with online scheduling, automatic reminders, and coverage for routine tests so you get the right care at the right time, not after a problem becomes urgent.",
-    cta: { text: "Learn More", link: "#claims" }
-   
+    cta: { text: "Learn More", link: "#preventive-care" }
   },
   {
     id: 2,
@@ -54,9 +72,8 @@ const slides = [
     heading: "Maternity & newborn support.",
     image: momImg,
     type: "text",
-    description: "Our maternity and newborn benefits ensure pregnant members receive proactive, coordinated care. That starts with early prenatal visits, recommended screenings, and personalized birth plans, continues through safe deliveryFor newborns, we cover initial hospital care, pediatric checkups, immunizations, and enrollment assistance so babies start life with the right protections.",
-    cta: { text: "Learn More", link: "#claims" }
-   
+    description: "Our maternity and newborn benefits ensure pregnant members receive proactive, coordinated care. That starts with early prenatal visits, recommended screenings, and personalized birth plans, continues through safe delivery. For newborns, we cover initial hospital care, pediatric checkups, immunizations, and enrollment assistance so babies start life with the right protections.",
+    cta: { text: "Learn More", link: "#maternity" }
   },
   {
     id: 3,
@@ -65,26 +82,25 @@ const slides = [
     image: careersImg,
     type: "text",
     description: "Protect the place you call home with coverage that rebuilds structures, replaces personal belongings, and covers liability for accidents that happen on your property. Our policies include flexible limits, optional add-ons for high-value items, and a claims team that moves quickly to restore your life after loss.",
-    cta: { text: "Learn More", link: "#claims" }
-   
+    cta: { text: "Learn More", link: "#home-coverage" }
   },
-   {
+  {
     id: 4,
     eyebrow: "WHY Insurify",
     heading: "Wall-to-wall coverage for your home.",
     image: kitchenImg,
     type: "text",
-    description: "Condo (HO-6) coverage focuses on what matters inside your unit—interior improvements, appliances, and personal property—while filling gaps left by the building’s master policy. We offer loss assessment protection, liability coverage, and options for unit-enhancement replacement so you’re covered for everyday risks.",
-    cta: { text: "Explore Careers", link: "#careers" }
+    description: "Condo (HO-6) coverage focuses on what matters inside your unit—interior improvements, appliances, and personal property—while filling gaps left by the building's master policy. We offer loss assessment protection, liability coverage, and options for unit-enhancement replacement so you're covered for everyday risks.",
+    cta: { text: "Learn More", link: "#condo-coverage" }
   },
   {
-     id:5,
+    id: 5,
     eyebrow: "WHY Insurify",
     heading: "Start your engine and stay protected",
     image: whyMsiImg,
     type: "text",
-    description: "Get on-the-road confidence with liability, collision, and comprehensive protection tailored to your driving habits. Fast online quotes, convenient digital ID cards, and accident support mean you can handle incidents without paperwork headaches",
-    cta: { text: "Learn More", link: "#claims" }
+    description: "Get on-the-road confidence with liability, collision, and comprehensive protection tailored to your driving habits. Fast online quotes, convenient digital ID cards, and accident support mean you can handle incidents without paperwork headaches.",
+    cta: { text: "Get a Quote", link: "#auto-insurance" }
   },
   {
     id: 6,
@@ -92,8 +108,8 @@ const slides = [
     heading: "Leave behind unexpected vehicle repair costs",
     image: claimsImg,
     type: "text",
-    description: "Comprehensive and collision coverages help pay for repairs after accidents, theft, or weather damage so you don’t shoulder large, surprise bills. Add-ons like roadside assistance, glass repair, and rental-car reimbursement keep you moving while repairs are handled quickly through our streamlined claims process.",
-    cta: { text: "Explore Careers", link: "#careers" }
+    description: "Comprehensive and collision coverages help pay for repairs after accidents, theft, or weather damage so you don't shoulder large, surprise bills. Add-ons like roadside assistance, glass repair, and rental-car reimbursement keep you moving while repairs are handled quickly through our streamlined claims process.",
+    cta: { text: "File a Claim", link: "#file-claim" }
   }
 ];
 
@@ -117,12 +133,12 @@ const MultiSlideCarousel: React.FC = () => {
   const slide = slides[currentSlide];
 
   return (
-    <section className="py-24 bg-background px-4">
+    <section className="py-24 bg-background px-4" aria-label="Featured insurance services">
       <div className="container mx-auto relative">
-        <div className="border-2 border-gray-200 p-10">
+        <div className="border-2 border-gray-200 p-10 rounded-lg">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Image Side with Decorative Elements */}
-            <div className="relative w-full h-[600px] group">
+            <div className="relative w-full h-[600px] group" aria-hidden="true">
               {/* Left Gradient - Thinner decorative element */}
               <div className="absolute -left-8 top-0 bottom-0 w-24 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-80 
                           transition-all duration-500 group-hover:opacity-90 group-hover:left-0 group-hover:w-20"
@@ -130,6 +146,7 @@ const MultiSlideCarousel: React.FC = () => {
                      clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0% 100%)',
                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                    }}
+                   aria-hidden="true"
               />
               
               {/* Right Gradient - Thinner decorative element */}
@@ -139,6 +156,7 @@ const MultiSlideCarousel: React.FC = () => {
                      clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0% 100%)',
                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                    }}
+                   aria-hidden="true"
               />
               
               {/* Main Image with subtle overlay */}
@@ -235,12 +253,15 @@ const MultiSlideCarousel: React.FC = () => {
             </div>
 
             {/* Next Button */}
-            <button
+            <button 
               onClick={nextSlide}
-              className="w-10 h-10 flex items-center justify-center border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all"
+              className="bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               aria-label="Next slide"
+              aria-controls="carousel-content"
+              aria-keyshortcuts="ArrowRight"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-6 h-6" aria-hidden="true" />
+              <span className="sr-only">Next slide</span>
             </button>
           </div>
         </div>
